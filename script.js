@@ -12,6 +12,7 @@ dragElement(document.getElementById('plant11'));//<img class="plant" alt="plant"
 dragElement(document.getElementById('plant12'));//<img class="plant" alt="plant" id="plant12" src="./images/plant12.png" />
 dragElement(document.getElementById('plant13'));//<img class="plant" alt="plant" id="plant13" src="./images/plant13.png" />
 dragElement(document.getElementById('plant14'));//<img class="plant" alt="plant" id="plant14" src="./images/plant14.png" />
+
 function dragElement(terrariumElement) {
 	//set 4 positions for positioning on the screen
 	let pos1 = 0,
@@ -19,6 +20,7 @@ function dragElement(terrariumElement) {
 		pos3 = 0,
 		pos4 = 0;
 	terrariumElement.onpointerdown = pointerDrag;
+
 
 	function elementDrag(e) {
 		pos1 = pos3 - e.clientX;
@@ -42,4 +44,26 @@ function stopElementDrag() {
 		document.onpointerup = null;
 		document.onpointermove = null;
 	}
+
+  function elementDrag(e) {
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    console.log(pos1, pos2, pos3, pos4);
+    terrariumElement.style.top = terrariumElement.offsetTop - pos2 + 'px';
+    terrariumElement.style.left = terrariumElement.offsetLeft - pos1 + 'px';
+  }
+  function pointerDrag(e) {
+    console.log(e);
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onpointermove = elementDrag;
+    document.onpointerup = stopElementDrag;
+  }
+
+  function stopElementDrag() {
+    document.onpointerup = null;
+    document.onpointermove = null;
+  }
 }
